@@ -10,11 +10,11 @@
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#insights" class="js-scroll-trigger">Insights</a>
+                <a href="#followme" class="js-scroll-trigger">Follow Me</a>
               </li>
               <li class="list-inline-item">&sdot;</li>
               <li class="list-inline-item">
-                <a href="#followme" class="js-scroll-trigger">Follow Me</a>
+                <a href="#insights" class="js-scroll-trigger">Insights</a>
               </li>
             </ul>
             <p class="text-muted small mb-4 mb-lg-0">&copy; Jasper Martin {{ yearNow }}. All Rights Reserved.</p>

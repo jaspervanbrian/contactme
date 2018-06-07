@@ -13,10 +13,10 @@
 						<a class="nav-link js-scroll-trigger" href="#about">About</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="#insights">Insights</a>
+						<a class="nav-link js-scroll-trigger" href="#followme">Follow Me</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link js-scroll-trigger" href="#followme">Follow Me</a>
+						<a class="nav-link js-scroll-trigger" href="#insights">Insights</a>
 					</li>
 				</ul>
 			</div>

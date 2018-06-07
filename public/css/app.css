@@ -9614,6 +9614,15 @@ a:focus, a:hover {
   background-size: cover;
 }
 
+.followme-section {
+  padding-top: 150px !important;
+  padding-bottom: 150px !important;
+  color: white;
+  background: url("../img/bg-followme.jpg") no-repeat center center fixed;
+  background-color: black;
+  background-size: cover;
+}
+
 #map {
   width: 100%;
   height: 300px;

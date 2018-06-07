@@ -17,6 +17,7 @@
 		<navbar></navbar>
 		<header-section></header-section>
 		<about-section></about-section>
+		<followme-section></followme-section>
 		<download-section></download-section>
 		<footer-section></footer-section>
 	</div>
