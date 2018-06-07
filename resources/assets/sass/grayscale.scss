@@ -189,12 +189,12 @@ a {
 
 .content-section {
   padding-top: 75px !important;
-  padding-bottom: 150px;
+  padding-bottom: 75px !important;
 }
 
 .download-section {
   color: white;
-  background: url('../img/downloads-bg.jpg') no-repeat center center scroll;
+  background: url('../img/bg-download.jpg') no-repeat center center fixed;
   background-color: black;
   -webkit-background-size: cover;
   -moz-background-size: cover;

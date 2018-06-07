@@ -24,6 +24,7 @@ fontawesome.library.add(brands, solids);
 Vue.component('navbar', require('./components/partials/NavigationBar.vue'));
 Vue.component('header-section', require('./components/partials/Header.vue'));
 Vue.component('about-section', require('./components/partials/About.vue'));
+Vue.component('download-section', require('./components/partials/DownloadResume.vue'));
 Vue.component('footer-section', require('./components/partials/Footer.vue'));
 
 const app = new Vue({
