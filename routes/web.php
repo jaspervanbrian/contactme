@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get("/", "MessageController@index");
+
+// Gibberish Url, throw 404
+Route::any('{all}', function(){
+    return view('errors.404');
+})->where('all', '.*');

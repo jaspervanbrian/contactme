@@ -9,14 +9,32 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+import fontawesome from '@fortawesome/fontawesome';
+import brands from '@fortawesome/fontawesome-free-brands';
+import solids from '@fortawesome/fontawesome-free-solid';
+
+fontawesome.library.add(brands, solids);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('navbar', require('./components/partials/NavigationBar.vue'));
+Vue.component('header-section', require('./components/partials/Header.vue'));
+Vue.component('about-section', require('./components/partials/About.vue'));
+Vue.component('footer-section', require('./components/partials/Footer.vue'));
 
 const app = new Vue({
     el: '#app'
+});
+
+
+let typed = new Typed('#typed', {
+	stringsElement: '#typed-strings',
+	smartBackspace: true,
+	loop: true,
+	typeSpeed: 40,
+	backSpeed: 20,
 });
