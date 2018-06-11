@@ -10,4 +10,8 @@ class MessageController extends Controller
     {
     	return view('index');
     }
+    public function create(Request $request)
+    {
+    	
+    }
 }

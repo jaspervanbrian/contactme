@@ -20,12 +20,13 @@ fontawesome.library.add(brands, solids);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('navbar', require('./components/partials/NavigationBar.vue'));
 Vue.component('header-section', require('./components/partials/Header.vue'));
 Vue.component('about-section', require('./components/partials/About.vue'));
-Vue.component('download-section', require('./components/partials/DownloadResume.vue'));
 Vue.component('followme-section', require('./components/partials/FollowMe.vue'));
+Vue.component('insights-section', require('./components/partials/Insights.vue'));
+Vue.component('download-section', require('./components/partials/DownloadResume.vue'));
 Vue.component('footer-section', require('./components/partials/Footer.vue'));
 
 const app = new Vue({

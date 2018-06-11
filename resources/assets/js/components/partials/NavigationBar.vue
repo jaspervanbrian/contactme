@@ -18,6 +18,9 @@
 					<li class="nav-item">
 						<a class="nav-link js-scroll-trigger" href="#insights">Insights</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+					</li>
 				</ul>
 			</div>
 		</div>

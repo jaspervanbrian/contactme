@@ -9603,20 +9603,29 @@ a:focus, a:hover {
 }
 
 .content-section {
+  min-height: 100vh !important;
   padding-top: 75px !important;
   padding-bottom: 75px !important;
 }
 
+.content-with-bg-section {
+  min-height: 100vh !important;
+  padding-top: 150px !important;
+  padding-bottom: 150px !important;
+}
+
 .download-section {
-  color: white;
   background: url("../img/bg-download.jpg") no-repeat center center fixed;
   background-color: black;
   background-size: cover;
 }
 
+#contact-me-container {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 30px !important;
+}
+
 .followme-section {
-  padding-top: 150px !important;
-  padding-bottom: 150px !important;
   color: white;
   background: url("../img/bg-followme.jpg") no-repeat center center fixed;
   background-color: black;

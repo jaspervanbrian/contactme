@@ -1,12 +1,12 @@
 <template>
 	<!-- Follow Me Section -->
-	<section id="followme" class="followme-section text-center">
+	<section id="followme" class="followme-section content-with-bg-section text-center">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 mx-auto">
 					<h2>Follow Me!</h2>
 					<p>
-						Feel free to follow me on these accounts, or leave a message/feedback on my email: jaspervanbrianmartin@gmail.com. Cheers!
+						Feel free to follow me on these accounts. Cheers!
 					</p>
 					<ul class="list-inline banner-social-buttons">
 						<li class="list-inline-item">
