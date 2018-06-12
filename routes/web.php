@@ -12,7 +12,8 @@
 */
 
 Route::get("/", "MessageController@index");
-Route::post("/", "MessageController@create");
+Route::get("/messages", "MessageController@messages");
+Route::post("/messages", "MessageController@create");
 
 // Gibberish Url, throw 404
 Route::any('{all}', function(){

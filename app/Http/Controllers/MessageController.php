@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Message;
 
 class MessageController extends Controller
 {
@@ -10,8 +11,15 @@ class MessageController extends Controller
     {
     	return view('index');
     }
+    public function messages()
+    {
+    	return json_encode(Message::paginate(7));
+    }
     public function create(Request $request)
     {
-    	
+    	$request->validate([
+    		"from" => 'required|string|max:255',
+    		"body" => 'required|string|max:255'
+    	]);
     }
 }

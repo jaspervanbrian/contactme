@@ -1,70 +1,47 @@
 <template>
     <section id="insights" class="content-section">
         <div class="container py-2">
-            <h2 class="text-center text-muted py-3">Bootstrap 4 Timeline</h2>
-
-            <!-- timeline item 1 -->
+            <h2 class="text-center text-muted py-3">Insights from other people.</h2>
             <div class="row">
-                <!-- timeline item 1 left dot -->
-                <div class="col-auto text-center flex-column d-none d-sm-flex">
-                    <div class="row h-50">
-                        <div class="col">&nbsp;</div>
-                        <div class="col">&nbsp;</div>
-                    </div>
-                    <h5 class="m-2">
-                        <span class="badge badge-pill bg-light border">&nbsp;</span>
-                    </h5>
-                    <div class="row h-50">
-                        <div class="col border-right">&nbsp;</div>
-                        <div class="col">&nbsp;</div>
-                    </div>
+                <div class="col-4">
+                    
                 </div>
-                <!-- timeline item 1 event content -->
-                <div class="col py-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="float-right text-muted">Mon, Jan 9th 2019 7:00 AM</div>
-                            <h4 class="card-title text-muted">Day 1 Orientation</h4>
-                            <p class="card-text">Welcome to the campus, introduction and get started with the tour.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/row-->
-            <!-- timeline item 2 -->
-            <div class="row">
-                <div class="col-auto text-center flex-column d-none d-sm-flex">
-                    <div class="row h-50">
-                        <div class="col border-right">&nbsp;</div>
-                        <div class="col">&nbsp;</div>
-                    </div>
-                    <h5 class="m-2">
-                        <span class="badge badge-pill bg-success">&nbsp;</span>
-                    </h5>
-                    <div class="row h-50">
-                        <div class="col border-right">&nbsp;</div>
-                        <div class="col">&nbsp;</div>
-                    </div>
-                </div>
-                <div class="col py-2">
-                    <div class="card border-success shadow">
-                        <div class="card-body">
-                            <div class="float-right text-success">Tue, Jan 10th 2019 8:30 AM</div>
-                            <h4 class="card-title text-success">Day 2 Sessions</h4>
-                            <p class="card-text">Sign-up for the lessons and speakers that coincide with your course syllabus. Meet and greet with instructors.</p>
-                            <button class="btn btn-sm btn-outline-secondary" type="button" data-target="#t2_details" data-toggle="collapse">Show Details ▼</button>
-                            <div class="collapse border" id="t2_details">
-                                <div class="p-2 text-monospace">
-                                    <div>08:30 - 09:00 Breakfast in CR 2A</div>
-                                    <div>09:00 - 10:30 Live sessions in CR 3</div>
-                                    <div>10:30 - 10:45 Break</div>
-                                    <div>10:45 - 12:00 Live sessions in CR 3</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-8">
+                    <insight
+                        v-for="(insight, index) in insights.data"
+                        :key="insight.id"
+                        :insight="insight"
+                    ></insight>
                 </div>
             </div>
         </div>
     </section>
 </template>
+
+<script>
+    import insight from './InsightComponent.vue';
+    export default {
+        data() {
+            return {
+                insights: {},
+            }
+        },
+        created() {
+            this.getInsights();
+        },
+        methods: {
+            getInsights(page = 1) {
+                axios.get(`messages?page=${page}`)
+                .then((response) => {
+                    this.insights = response.data;
+                })
+                .catch((response) => {
+                    console.log(response);
+                });
+            },
+        },
+        components: {
+            insight,
+        }
+    }
+</script>
