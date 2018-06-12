@@ -37,7 +37,10 @@
 <script>
 	export default {
         props: {
-            
+            insight: {
+            	type: Object,
+            	required: true,
+            }
         },
 	}
 </script>

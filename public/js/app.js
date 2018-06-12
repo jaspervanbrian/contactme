@@ -71654,12 +71654,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            insights: {}
+            insights: {},
+            from: "",
+            body: "",
+            fromValid: true,
+            bodyValid: true,
+            isValid: true
         };
     },
     created: function created() {
@@ -71672,11 +71694,63 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
 
-            axios.get('messages?page=' + page).then(function (response) {
+            axios.get("messages?page=" + page).then(function (response) {
                 _this.insights = response.data;
+                console.log(_this.insights);
             }).catch(function (response) {
                 console.log(response);
             });
+        },
+        submitInsight: function submitInsight() {
+            var _this2 = this;
+
+            if (this.from.trim() !== "" && this.body.trim() !== "" && this.isValid) {
+                axios.post("messages", {
+                    from: this.from.trim(),
+                    body: this.body.trim()
+                }).then(function (response) {
+                    _this2.getInsights();
+                    _this2.from = "";
+                    _this2.body = "";
+                }).catch(function (response) {
+                    console.log(response);
+                });
+            }
+        },
+        checkFrom: function checkFrom() {
+            if (this.from.length > 255) {
+                this.fromValid = false;
+                this.isValid = false;
+            } else {
+                this.fromValid = true;
+            }
+            this.checkIsValid();
+        },
+        checkBody: function checkBody() {
+            if (this.body.length > 255) {
+                this.bodyValid = false;
+                this.isValid = false;
+            } else {
+                this.bodyValid = true;
+            }
+            this.checkIsValid();
+        },
+        checkIsValid: function checkIsValid() {
+            if (this.fromValid && this.bodyValid) {
+                this.isValid = true;
+            }
+        }
+    },
+    computed: {
+        availableChars: function availableChars() {
+            return 255 - this.body.length;
+        }
+    },
+    directives: {
+        focus: {
+            inserted: function inserted(el) {
+                el.focus();
+            }
         }
     },
     components: {
@@ -71775,7 +71849,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {}
+    props: {
+        insight: {
+            type: Object,
+            required: true
+        }
+    }
 });
 
 /***/ }),
@@ -71888,25 +71967,138 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "section",
-    { staticClass: "content-section", attrs: { id: "insights" } },
+    {
+      staticClass: "insight-section content-section",
+      attrs: { id: "insights" }
+    },
     [
       _c("div", { staticClass: "container py-2" }, [
         _c("h2", { staticClass: "text-center text-muted py-3" }, [
           _vm._v("Insights from other people.")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-4" }),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "row my-2" }, [
+          _c("div", { staticClass: "col-4 align-content-center" }, [
+            _c("div", { staticClass: "form-group" }, [
+              _c("label", { attrs: { for: "from" } }, [
+                _vm._v("Your insights about me.")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.from,
+                    expression: "from"
+                  },
+                  { name: "focus", rawName: "v-focus" }
+                ],
+                staticClass: "form-control",
+                class: { "is-invalid": !_vm.fromValid },
+                attrs: {
+                  type: "text",
+                  placeholder: "Your name",
+                  name: "from",
+                  id: "from"
+                },
+                domProps: { value: _vm.from },
+                on: {
+                  keydown: _vm.checkFrom,
+                  keyup: _vm.checkFrom,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.from = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.body,
+                    expression: "body"
+                  }
+                ],
+                staticClass: "form-control",
+                class: { "is-invalid": !_vm.bodyValid },
+                attrs: {
+                  name: "body",
+                  id: "body",
+                  cols: "30",
+                  rows: "7",
+                  placeholder: "Write your insights here!"
+                },
+                domProps: { value: _vm.body },
+                on: {
+                  keydown: _vm.checkBody,
+                  keyup: _vm.checkBody,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.body = $event.target.value
+                  }
+                }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-outline-primary",
+                  attrs: { disabled: !_vm.isValid },
+                  on: { click: _vm.submitInsight }
+                },
+                [_vm._v("Submit")]
+              ),
+              _vm._v(" "),
+              _c(
+                "small",
+                {
+                  staticClass: "float-right",
+                  class: { "text-danger": !_vm.bodyValid }
+                },
+                [_vm._v(_vm._s(_vm.availableChars))]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
             { staticClass: "col-8" },
-            _vm._l(_vm.insights.data, function(insight, index) {
-              return _c("insight", {
-                key: insight.id,
-                attrs: { insight: insight }
-              })
-            })
+            [
+              _vm._l(_vm.insights.data, function(insight, index) {
+                return _c("insight", {
+                  key: insight.id,
+                  attrs: { insight: insight }
+                })
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "row mt-4" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-12" },
+                  [
+                    _c("pagination", {
+                      attrs: { data: _vm.insights },
+                      on: { "pagination-change-page": _vm.getInsights }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ],
+            2
           )
         ])
       ])

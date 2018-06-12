@@ -21,5 +21,10 @@ class MessageController extends Controller
     		"from" => 'required|string|max:255',
     		"body" => 'required|string|max:255'
     	]);
+
+    	Message::create([
+    		"from" => trim($request['from']),
+    		"body" => trim($request['body']),
+    	]);
     }
 }

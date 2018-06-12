@@ -9618,6 +9618,10 @@ a:focus, a:hover {
   background-size: cover;
 }
 
+.insight-section {
+  min-height: 70vh !important;
+}
+
 #contact-me-container {
   background: rgba(255, 255, 255, 0.8);
   padding: 30px !important;
@@ -9729,4 +9733,19 @@ img::-moz-selection {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+::-moz-selection {
+  background: #ffb7b7 !important;
+  /* WebKit/Blink Browsers */
+}
+
+::selection {
+  background: #ffb7b7 !important;
+  /* WebKit/Blink Browsers */
+}
+
+::-moz-selection {
+  background: #ffb7b7 !important;
+  /* Gecko Browsers */
 }
