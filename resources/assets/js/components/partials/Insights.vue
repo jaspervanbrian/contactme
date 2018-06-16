@@ -7,8 +7,7 @@
                 <div class="col-4 align-content-center">
                     <div class="form-group">
                         <label for="from">Your insights about me.</label>
-                        <input type="text" class="form-control" placeholder="Your name" name="from" id="from" v-model="from"
-                        v-focus  @keydown="checkFrom" @keyup="checkFrom" :class="{ 'is-invalid' : !fromValid }">
+                        <input type="text" class="form-control" placeholder="Your name" name="from" id="from" v-model="from" @keydown="checkFrom" @keyup="checkFrom" :class="{ 'is-invalid' : !fromValid }">
                     </div>
                     <div class="form-group">
                         <textarea v-model="body" name="body" id="body" cols="30" rows="7" placeholder="Write your insights here!" class="form-control" @keydown="checkBody" @keyup="checkBody" :class="{ 'is-invalid' : !bodyValid }"></textarea>
@@ -18,7 +17,7 @@
                         <small class="float-right" :class="{ 'text-danger' : !bodyValid }">{{ availableChars }}</small>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-8" v-if="insights.data.length > 0">
                     <insight
                         v-for="(insight, index) in insights.data"
                         :key="insight.id"
@@ -26,9 +25,12 @@
                     ></insight>
                     <div class="row mt-4">
                         <div class="col-12">
-                            <pagination :data="insights" @pagination-change-page="getInsights"></pagination>
+                            <pagination :data="insights" @pagination-change-page="getInsights" :limit="2"></pagination>
                         </div>
                     </div>
+                </div>
+                <div class="col-8" v-else>
+                    <div class="alert alert-info">Be the one to comment first!</div>
                 </div>
             </div>
         </div>
@@ -38,6 +40,12 @@
 <script>
     import insight from './InsightComponent.vue';
     export default {
+        props: {
+            insightsFromServer: {
+                type: Object,
+                required: true,
+            },
+        },
         data() {
             return {
                 insights: {},
@@ -49,18 +57,20 @@
             }
         },
         created() {
-            this.getInsights();
+            this.insights = this.insightsFromServer;
         },
         methods: {
             getInsights(page = 1) {
                 axios.get(`messages?page=${page}`)
                 .then((response) => {
                     this.insights = response.data;
-                    console.log(this.insights);
                 })
                 .catch((response) => {
                     console.log(response);
                 });
+                $('html, body').animate({
+                    scrollTop: ($("#insights").offset().top - 48)
+                }, 1000, "easeInOutExpo");
             },
             submitInsight() {
                 if (this.from.trim() !== "" && this.body.trim() !== "" && this.isValid) {
@@ -79,7 +89,7 @@
                 }
             },
             checkFrom() {
-                if (this.from.length > 255) {
+                if (this.from.trim().length > 255) {
                     this.fromValid = false;
                     this.isValid = false;
                 } else {
@@ -88,7 +98,7 @@
                 this.checkIsValid();
             },
             checkBody() {
-                if (this.body.length > 255) {
+                if (this.body.trim().length > 255) {
                     this.bodyValid = false;
                     this.isValid = false;
                 } else {
@@ -104,16 +114,16 @@
         },
         computed: {
             availableChars() {
-                return (255 - this.body.length);
+                return (255 - this.body.trim().length);
             },
         },
-        directives: {
-            focus: {
-                inserted(el) {
-                    el.focus()
-                }
-            }
-        },
+        // directives: {
+        //     focus: {
+        //         inserted(el) {
+        //             el.focus()
+        //         }
+        //     }
+        // },
         components: {
             insight,
         }

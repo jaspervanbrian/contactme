@@ -71671,9 +71671,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    props: {
+        insightsFromServer: {
+            type: Object,
+            required: true
+        }
+    },
     data: function data() {
         return {
             insights: {},
@@ -71685,7 +71693,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
-        this.getInsights();
+        this.insights = this.insightsFromServer;
     },
 
     methods: {
@@ -71696,10 +71704,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get("messages?page=" + page).then(function (response) {
                 _this.insights = response.data;
-                console.log(_this.insights);
             }).catch(function (response) {
                 console.log(response);
             });
+            $('html, body').animate({
+                scrollTop: $("#insights").offset().top - 48
+            }, 1000, "easeInOutExpo");
         },
         submitInsight: function submitInsight() {
             var _this2 = this;
@@ -71718,7 +71728,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
         },
         checkFrom: function checkFrom() {
-            if (this.from.length > 255) {
+            if (this.from.trim().length > 255) {
                 this.fromValid = false;
                 this.isValid = false;
             } else {
@@ -71727,7 +71737,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.checkIsValid();
         },
         checkBody: function checkBody() {
-            if (this.body.length > 255) {
+            if (this.body.trim().length > 255) {
                 this.bodyValid = false;
                 this.isValid = false;
             } else {
@@ -71743,16 +71753,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: {
         availableChars: function availableChars() {
-            return 255 - this.body.length;
+            return 255 - this.body.trim().length;
         }
     },
-    directives: {
-        focus: {
-            inserted: function inserted(el) {
-                el.focus();
-            }
-        }
-    },
+    // directives: {
+    //     focus: {
+    //         inserted(el) {
+    //             el.focus()
+    //         }
+    //     }
+    // },
     components: {
         insight: __WEBPACK_IMPORTED_MODULE_0__InsightComponent_vue___default.a
     }
@@ -71811,7 +71821,8 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_vue_fontawesome__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_vue_fontawesome___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__fortawesome_vue_fontawesome__);
 //
 //
 //
@@ -71848,12 +71859,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
         insight: {
             type: Object,
             required: true
         }
+    },
+    data: function data() {
+        return {
+            showed: "caret-down"
+
+        };
+    },
+
+    methods: {
+        toggleShow: function toggleShow() {
+            if (this.showed === "caret-up") {
+                this.showed = "caret-down";
+            } else {
+                this.showed = "caret-up";
+            }
+        }
+    },
+    computed: {
+        fromNow: function fromNow() {
+            return moment(this.insight.created_at).fromNow();
+        },
+        details: function details() {
+            return "details" + this.insight.id;
+        },
+        dateDetails: function dateDetails() {
+            return moment(this.insight.created_at).format('MMMM DD, YYYY | dddd, h:mm:ss a');
+        }
+    },
+    components: {
+        FontAwesomeIcon: __WEBPACK_IMPORTED_MODULE_0__fortawesome_vue_fontawesome___default.a
     }
 });
 
@@ -71865,87 +71907,88 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "row" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col py-2" }, [
+      _c("div", { staticClass: "card border-success shadow" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "float-right text-secondary" }, [
+            _vm._v(_vm._s(_vm.fromNow))
+          ]),
+          _vm._v(" "),
+          _c("h4", { staticClass: "card-title text-success" }, [
+            _vm._v(_vm._s(_vm.insight.from))
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "card-text" }, [
+            _vm._v("\n\t\t\t\t\t" + _vm._s(_vm.insight.body) + "\n\t\t\t\t")
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-sm btn-outline-secondary",
+              attrs: {
+                type: "button",
+                "data-target": "#" + _vm.details,
+                "data-toggle": "collapse"
+              },
+              on: { click: _vm.toggleShow }
+            },
+            [
+              _vm._v("Show Details "),
+              _c("font-awesome-icon", { attrs: { icon: _vm.showed } })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "collapse border", attrs: { id: _vm.details } },
+            [
+              _c("div", { staticClass: "p-2 text-monospace" }, [
+                _vm._v(
+                  "\n\t\t\t\t\t\tDate posted: " +
+                    _vm._s(_vm.dateDetails) +
+                    "\n\t\t\t\t\t"
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-auto text-center flex-column d-none d-sm-flex" },
-        [
-          _c("div", { staticClass: "row h-50" }, [
-            _c("div", { staticClass: "col border-right" }, [_vm._v(" ")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [_vm._v(" ")])
-          ]),
+    return _c(
+      "div",
+      { staticClass: "col-auto text-center flex-column d-none d-sm-flex" },
+      [
+        _c("div", { staticClass: "row h-50" }, [
+          _c("div", { staticClass: "col border-right" }, [_vm._v(" ")]),
           _vm._v(" "),
-          _c("h5", { staticClass: "m-2" }, [
-            _c("span", { staticClass: "badge badge-pill bg-success" }, [
-              _vm._v(" ")
-            ])
-          ]),
+          _c("div", { staticClass: "col" }, [_vm._v(" ")])
+        ]),
+        _vm._v(" "),
+        _c("h5", { staticClass: "m-2" }, [
+          _c("span", { staticClass: "badge badge-pill bg-success" }, [
+            _vm._v(" ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row h-50" }, [
+          _c("div", { staticClass: "col border-right" }, [_vm._v(" ")]),
           _vm._v(" "),
-          _c("div", { staticClass: "row h-50" }, [
-            _c("div", { staticClass: "col border-right" }, [_vm._v(" ")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col" }, [_vm._v(" ")])
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col py-2" }, [
-        _c("div", { staticClass: "card border-success shadow" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "float-right text-success" }, [
-              _vm._v("Tue, Jan 10th 2019 8:30 AM")
-            ]),
-            _vm._v(" "),
-            _c("h4", { staticClass: "card-title text-success" }, [
-              _vm._v("Day 2 Sessions")
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "card-text" }, [
-              _vm._v(
-                "Sign-up for the lessons and speakers that coincide with your course syllabus. Meet and greet with instructors."
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-sm btn-outline-secondary",
-                attrs: {
-                  type: "button",
-                  "data-target": "#t2_details",
-                  "data-toggle": "collapse"
-                }
-              },
-              [_vm._v("Show Details ▼")]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "collapse border", attrs: { id: "t2_details" } },
-              [
-                _c("div", { staticClass: "p-2 text-monospace" }, [
-                  _c("div", [_vm._v("08:30 - 09:00 Breakfast in CR 2A")]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("09:00 - 10:30 Live sessions in CR 3")]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("10:30 - 10:45 Break")]),
-                  _vm._v(" "),
-                  _c("div", [_vm._v("10:45 - 12:00 Live sessions in CR 3")])
-                ])
-              ]
-            )
-          ])
+          _c("div", { staticClass: "col" }, [_vm._v(" ")])
         ])
-      ])
-    ])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -71993,8 +72036,7 @@ var render = function() {
                     rawName: "v-model",
                     value: _vm.from,
                     expression: "from"
-                  },
-                  { name: "focus", rawName: "v-focus" }
+                  }
                 ],
                 staticClass: "form-control",
                 class: { "is-invalid": !_vm.fromValid },
@@ -72073,33 +72115,39 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-8" },
-            [
-              _vm._l(_vm.insights.data, function(insight, index) {
-                return _c("insight", {
-                  key: insight.id,
-                  attrs: { insight: insight }
-                })
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "row mt-4" }, [
-                _c(
-                  "div",
-                  { staticClass: "col-12" },
-                  [
-                    _c("pagination", {
-                      attrs: { data: _vm.insights },
-                      on: { "pagination-change-page": _vm.getInsights }
+          _vm.insights.data.length > 0
+            ? _c(
+                "div",
+                { staticClass: "col-8" },
+                [
+                  _vm._l(_vm.insights.data, function(insight, index) {
+                    return _c("insight", {
+                      key: insight.id,
+                      attrs: { insight: insight }
                     })
-                  ],
-                  1
-                )
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "row mt-4" }, [
+                    _c(
+                      "div",
+                      { staticClass: "col-12" },
+                      [
+                        _c("pagination", {
+                          attrs: { data: _vm.insights, limit: 2 },
+                          on: { "pagination-change-page": _vm.getInsights }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                ],
+                2
+              )
+            : _c("div", { staticClass: "col-8" }, [
+                _c("div", { staticClass: "alert alert-info" }, [
+                  _vm._v("Be the one to comment first!")
+                ])
               ])
-            ],
-            2
-          )
         ])
       ])
     ]

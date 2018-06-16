@@ -9,11 +9,12 @@ class MessageController extends Controller
 {
     public function index(Request $request)
     {
-    	return view('index');
+    	$insights = Message::orderBy('created_at', 'desc')->paginate(7);
+    	return view('index', compact('insights'));
     }
     public function messages()
     {
-    	return json_encode(Message::paginate(7));
+    	return json_encode(Message::orderBy('created_at', 'desc')->paginate(7));
     }
     public function create(Request $request)
     {
