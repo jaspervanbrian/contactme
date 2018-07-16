@@ -17,7 +17,7 @@
                 </p>
                 <div id="typed-strings">
                   <p>I am an enthusiastic <strong>web developer.</strong></p>
-                  <p>I am <em>passionate</em> about creating meaningful websites.</p>
+                  <p>I am <em>passionate</em> about creating meaningful web applications.</p>
                   <p>I am <em>eager</em> about helping other people.</p>
                   <p>I want to make the world a <strong>better</strong> place.</p>
                 </div>

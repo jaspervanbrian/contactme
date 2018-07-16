@@ -71175,7 +71175,7 @@ var staticRenderFns = [
           _c("p", [
             _vm._v("I am "),
             _c("em", [_vm._v("passionate")]),
-            _vm._v(" about creating meaningful websites.")
+            _vm._v(" about creating meaningful web applications.")
           ]),
           _vm._v(" "),
           _c("p", [
@@ -72280,7 +72280,7 @@ var render = function() {
         [
           _c("div", { staticClass: "row mb-4" }, [
             _c("div", { staticClass: "col-lg-8 mx-auto" }, [
-              _c("h2", [_vm._v("More about me...")]),
+              _c("h2", [_vm._v("For more information...")]),
               _vm._v(" "),
               _c("p", [_vm._v("In here, you can download my resume.")]),
               _vm._v(" "),

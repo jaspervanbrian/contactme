@@ -4,7 +4,7 @@
 		<div class="container-fluid" id="contact-me-container">
 			<div class="row mb-4">
 				<div class="col-lg-8 mx-auto">
-					<h2>More about me...</h2>
+					<h2>For more information...</h2>
 					<p>In here, you can download my resume.</p>
 					<a :href="downloadResume" class="btn btn-default btn-lg" download="jasper_martin">
 						<font-awesome-icon icon="download" />
