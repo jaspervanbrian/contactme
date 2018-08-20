@@ -59,7 +59,7 @@
         },
         computed: {
         	fromNow() {
-        		return moment(this.insight.created_at).fromNow();
+        		return moment.utc(this.insight.created_at, "YYYY-MM-DD h:mm:ss").fromNow();
         	},
         	details() {
         		return "details" + this.insight.id;
