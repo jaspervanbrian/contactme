@@ -16,6 +16,12 @@
 							</a>
 						</li>
 						<li class="list-inline-item">
+							<a href="#!" class="btn btn-default btn-lg" @click="openMedium">
+                				<font-awesome-icon :icon="['fab', 'medium']" />
+								<span class="network-name">Medium</span>
+							</a>
+						</li>
+						<li class="list-inline-item">
 							<a href="#!" class="btn btn-default btn-lg" @click="openGitHub">
 								<font-awesome-icon :icon="['fab', 'github']" />
 								<span class="network-name">Github</span>
@@ -40,6 +46,9 @@
 		methods: {
 			openTwitter() {
 				window.open("https://twitter.com/jaspervanbrian");
+			},
+			openMedium() {
+				window.open("https://medium.com/@jaspervanbrian");
 			},
 			openGitHub() {
 				window.open("https://github.com/jaspervanbrian");
