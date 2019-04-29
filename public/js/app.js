@@ -71454,12 +71454,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	methods: {
 		openTwitter: function openTwitter() {
 			window.open("https://twitter.com/jaspervanbrian");
+		},
+		openMedium: function openMedium() {
+			window.open("https://medium.com/@jaspervanbrian");
 		},
 		openGitHub: function openGitHub() {
 			window.open("https://github.com/jaspervanbrian");
@@ -71515,6 +71524,27 @@ var render = function() {
                     _vm._v(" "),
                     _c("span", { staticClass: "network-name" }, [
                       _vm._v("Twitter")
+                    ])
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "list-inline-item" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-default btn-lg",
+                    attrs: { href: "#!" },
+                    on: { click: _vm.openMedium }
+                  },
+                  [
+                    _c("font-awesome-icon", {
+                      attrs: { icon: ["fab", "medium"] }
+                    }),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "network-name" }, [
+                      _vm._v("Medium")
                     ])
                   ],
                   1
@@ -71885,7 +71915,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     computed: {
         fromNow: function fromNow() {
-            return moment(this.insight.created_at).fromNow();
+            return moment.utc(this.insight.created_at, "YYYY-MM-DD h:mm:ss").fromNow();
         },
         details: function details() {
             return "details" + this.insight.id;
